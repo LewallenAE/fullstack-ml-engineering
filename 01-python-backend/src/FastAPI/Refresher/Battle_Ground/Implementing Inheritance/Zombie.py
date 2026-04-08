@@ -1,4 +1,5 @@
 from Enemy import *
+import random
 
 class Zombie(Enemy):
 
@@ -10,5 +11,11 @@ class Zombie(Enemy):
     def talk(self) -> None:
         print('Grr..Yahhhh *Grumbling* grble. Braiiiins....')
 
-    def spread_disease(self):
+    def walk(self) -> None:
+        print("The Zombie shuffles forward")
+
+    def spread_disease(self) -> None:
         print("Zombie has casted contagion, it's trying to spread infection!")
+
+    def brain_drain(self) -> None:
+        did_special_attack_work = random.random() <= 0.50
