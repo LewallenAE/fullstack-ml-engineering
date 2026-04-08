@@ -17,6 +17,12 @@ class Enemy:
     def status(self) -> None:
         print(f"Foe: {self.type_of_enemy}, HP: {self.health_points}, Attack: {self.attack_damage}")
 
+    def special_attack(self):
+        print("Enemy has no special attack!")
+
+    def get_type_of_enemy(self) -> str:
+        return self.type_of_enemy
+
     def attack(self) -> None:
         print(f"{self.type_of_enemy} swings hard and attacks for {self.attack_damage}!")
 

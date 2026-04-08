@@ -17,5 +17,11 @@ class Zombie(Enemy):
     def spread_disease(self) -> None:
         print("Zombie has casted contagion, it's trying to spread infection!")
 
-    def brain_drain(self) -> None:
+    # def get_type_of_enemy(self) -> str:
+        # return self.type_of_enemy
+
+    def special_attack(self) -> None:
         did_special_attack_work = random.random() <= 0.50
+        if did_special_attack_work:
+            self.health_points += 20
+            print("The zombie drains life-force from braaaaaaains regenerating 20 HP")
