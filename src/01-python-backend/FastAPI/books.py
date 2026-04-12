@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import Body, FastAPI
 
 app = FastAPI()
 
@@ -11,10 +11,12 @@ BOOKS = [
     {'title': 'Title six', 'author': 'Author six', 'category': 'machine learning'}
 ]
 
+# all
 @app.get("/books")
 async def read_all_books():
     return BOOKS
 
+# path parameter
 @app.get("/books/{category}")
 async def read_category(category: str):
     books_to_return = []
@@ -23,8 +25,8 @@ async def read_category(category: str):
             books_to_return.append(book)
     return books_to_return
 
-
-@app.get("/books")
+# Query
+@app.get("/books/")
 async def read_category_query(category: str = None):
     if category:
         books_to_return = []
@@ -35,7 +37,7 @@ async def read_category_query(category: str = None):
     return BOOKS
 
 
-@app.get("/book/")
+@app.get("/book/search/")
 async def read_author_query(author: str =None):
     if author:
         books_to_return = []
@@ -53,14 +55,18 @@ async def read_author_or_category_query(author:str = None, category: str = None)
     if author:
         books_to_return = [
             book for book in books_to_return
-            if book.get('author').casefold() == author.casefold()
+            if book.get('author', "").casefold() == author.casefold()
             ]
 
     if category:
         books_to_return = [
             book for book in books_to_return
-            if book.get('category').casefold() == category.casefold()
+            if book.get('category', "").casefold() == category.casefold()
             ]
 
     return books_to_return
 
+
+@app.post("/books/create_book")
+async def create_book(new_book=Body()):
+    BOOKS.append(new_book)
